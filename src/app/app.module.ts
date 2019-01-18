@@ -1,6 +1,5 @@
 // Components
 import { AppComponent } from './app.component';
-import { SidenavComponent } from './components/sidenav/sidenav.component';
 import { OauthComponent } from './components/oauth/oauth.component'
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { LastActivityPreviewComponent } from './components/last-activity-preview/last-activity-preview.component';
@@ -25,8 +24,10 @@ import { MatGridListModule, MatCardModule, MatMenuModule, MatIconModule, MatButt
 @NgModule({
   declarations: [
     AppComponent,
-    SidenavComponent, 
-    OauthComponent, DashboardComponent, LastActivityPreviewComponent, ActivitiesListComponent
+    OauthComponent, 
+    DashboardComponent, 
+    LastActivityPreviewComponent, 
+    ActivitiesListComponent
   ],
   imports: [
     AppRoutingModule,
