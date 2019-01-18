@@ -3,7 +3,7 @@ export class Constants {
     /**
      * Valeurs par défaut pour les besoins d'authentifications
      */
-    public static REDIRECT_URI_DEFAULT         : string = 'http://jonathanRoyer76.github.io/stravaAnalytics/authentification';
+    public static REDIRECT_URI_DEFAULT         : string = 'https://jonathanroyer76.github.io/stravaAnalytics//authentification';
     public static RESPONSE_TYPE_DEFAULT        : string = 'code';
     public static GRANT_TYPE_FIRST_CODE_DEFAULT: string = 'authorization_code';
     public static APPROVAL_PROMPT_DEFAULT      : string = 'force';
