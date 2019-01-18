@@ -1,0 +1,50 @@
+<div class="mat-elevation-z8">
+  <table mat-table class="full-width-table" [dataSource]="dataSource.data" matSort aria-label="Elements">
+    
+    <!-- Id Column -->
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Id</th>
+      <td mat-cell *matCellDef="let row">{{row.id}}</td>
+    </ng-container>
+
+    <!-- Date Column -->
+    <ng-container matColumnDef="date">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Date</th>
+      <td mat-cell *matCellDef="let row">{{row.date | date:'dd.MM.yyyy'}}</td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
+      <td mat-cell *matCellDef="let row"><span class='text-orange'>{{row.name}}</span></td>
+    </ng-container>
+
+    <!-- Duration Column -->
+    <ng-container matColumnDef="duration">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Durée</th>
+      <td mat-cell *matCellDef="let row"><span class='text-orange text-info'>{{row.duration}}</span> min</td>
+    </ng-container>
+
+    <!-- AverageSpeed Column -->
+    <ng-container matColumnDef="averageSpeed">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Allure</th>
+      <td mat-cell *matCellDef="let row"><span class='text-orange text-info'>{{row.averageSpeed}}</span> min/Km (<b><span class='text-orange'>{{row.kmByHour}}</span></b> km/h)</td>
+    </ng-container>
+
+      <!-- Distance Column -->
+    <ng-container matColumnDef="distance">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Distance</th>
+      <td mat-cell *matCellDef="let row"><span class='text-orange text-info'>{{row.distance}}</span> Km</td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <mat-paginator #paginator
+      [length]="dataSource.data.length"
+      [pageIndex]="0"
+      [pageSize]="50"
+      [pageSizeOptions]="[25, 50, 100, 250]">
+  </mat-paginator>
+</div>

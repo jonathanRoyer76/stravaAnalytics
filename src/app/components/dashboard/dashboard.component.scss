@@ -1,0 +1,40 @@
+.grid-container {
+  margin: 20px;
+}
+
+.dashboard-card {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  right: 15px;
+  bottom: 15px;  
+  overflow: hidden;
+}
+
+.more-button {
+  position: absolute;
+  top: 5px;
+  right: 10px;
+  color: black;
+}
+
+.dashboard-card-content {
+  text-align: center;  
+}
+
+.text-orange{
+  color: #fc4c02; 
+}
+
+.fontSize-synthese{
+  font-size: 2em;
+  margin-left: 0.4em;
+}
+
+.fontSize-syntheseSmall{
+  margin-left: 0.5em;
+}
+
+.separator{
+  margin-left: 0.4em;
+}
