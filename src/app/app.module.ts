@@ -1,6 +1,5 @@
 // Components
 import { AppComponent } from './app.component';
-import { OauthComponent } from './components/oauth/oauth.component'
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { LastActivityPreviewComponent } from './components/last-activity-preview/last-activity-preview.component';
 import { ActivitiesListComponent } from './components/activities-list/activities-list.component';
@@ -24,7 +23,6 @@ import { MatGridListModule, MatCardModule, MatMenuModule, MatIconModule, MatButt
 @NgModule({
   declarations: [
     AppComponent,
-    OauthComponent, 
     DashboardComponent, 
     LastActivityPreviewComponent, 
     ActivitiesListComponent
