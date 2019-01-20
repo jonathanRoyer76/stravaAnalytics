@@ -1,11 +1,11 @@
-import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivitiesService } from 'src/app/services/activities.service';
 import { UtilsMethods } from 'src/app/configuration/utils';
 import { AnnualStatsInterface, AnnualStatsClass } from 'src/app/classes/annualStats';
 import { Chart } from 'chart.js';
 import { Constants } from 'src/app/configuration/constants';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { tendance } from 'src/app/classes/tendance';
 
@@ -14,7 +14,7 @@ import { tendance } from 'src/app/classes/tendance';
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
-export class DashboardComponent implements OnInit, OnDestroy{
+export class DashboardComponent implements OnInit{
   
   // Pour les graphs
   colspanGraphs          = Constants.colspanLandscapeGraphs;
@@ -30,11 +30,27 @@ export class DashboardComponent implements OnInit, OnDestroy{
   
   tendance : tendance = new tendance(); 
 
-  // Surveille la résolution de l'écran
-  isHandSet: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.WebLandscape)
+  isGraphsShowable : boolean = true;
+  // Surveille la résolution de l'écran pour le web paysage
+  isWebLandscape: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.WebLandscape)
     .pipe(
       map(result => result.matches)
     )
+  // Surveille la résolution de l'écran pour le web portrait
+  isWebPortrait: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.WebPortrait)
+    .pipe(
+      map(result => result.matches)
+    )
+  // Surveille la résolution de l'écran pour le mobile portrait
+  isHandsetPortrait: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.HandsetPortrait)
+  .pipe(
+    map(result => result.matches)
+  )
+  // Surveille la résolution de l'écran pour le mobile paysage
+  isHandsetLandscape: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.HandsetLandscape)
+  .pipe(
+    map(result => result.matches)
+  )
 
   // Tableaux contenant les activités
   activitiesListPastYear  : AnnualStatsInterface;  
@@ -52,18 +68,72 @@ export class DashboardComponent implements OnInit, OnDestroy{
   ){}
 
   ngOnInit(){
-    
-    this.isHandSet.subscribe(p_boo=>{
-      this.colspanGraphs   = (p_boo) ? Constants.colspanLandscapeGraphs  : Constants.colspanPortraitGraphs;
-      this.rowspanGraphs   = (p_boo) ? Constants.rowspanLandscapeGraphs  : Constants.rowspanPortraitGraphs;
-      this.rowspanSynthese = (p_boo) ? Constants.rowspanLandscapeSynthese: Constants.rowspanPortraitSynthese;
-      this.colspanSynthese = (p_boo) ? Constants.colspanLandscapeSynthese: Constants.colspanPortraitSynthese;
-      this.rowspanSmall    = (p_boo) ? Constants.rowspanLandscapeSmall   : Constants.rowspanPortraitSmall;
-      this.colspanSmall    = (p_boo) ? Constants.colspanLandscapeSmall   : Constants.colspanPortraitSmall;
-      this.ratio           = (p_boo) ? Constants.ratioLandscape          : Constants.ratioPortrait;
-      this.colsCount       = (p_boo) ? Constants.colCountLandscape       : Constants.colCountPortrait;
-      this.rowspanActivityPreview = (p_boo) ? Constants.rowspanLandscapeActivityPreview: Constants.rowspanPortraitActivityPreview;
-      this.colspanActivityPreview = (p_boo) ? Constants.colspanLandscapeActivityPreview: Constants.colspanPortraitActivityPreview;
+    // Pour le paysage web
+    this.isWebLandscape.subscribe(p_boo=>{
+      if (p_boo){
+        if (!this.isGraphsShowable){
+          
+          this.isGraphsShowable = true;          
+        }
+        this.colspanGraphs          = Constants.colspanLandscapeGraphs;
+        this.rowspanGraphs          = Constants.rowspanLandscapeGraphs;
+        this.rowspanSynthese        = Constants.rowspanLandscapeSynthese;
+        this.colspanSynthese        = Constants.colspanLandscapeSynthese;
+        this.rowspanSmall           = Constants.rowspanLandscapeSmall;
+        this.colspanSmall           = Constants.colspanLandscapeSmall;
+        this.ratio                  = Constants.ratioLandscape;
+        this.colsCount              = Constants.colCountLandscape;
+        this.rowspanActivityPreview = Constants.rowspanLandscapeActivityPreview;
+        this.colspanActivityPreview = Constants.colspanLandscapeActivityPreview;
+      }      
+    })  
+    // Pour le portrait web
+    this.isWebPortrait.subscribe(p_boo=>{
+      if (p_boo){
+        this.isGraphsShowable = true;
+        this.colspanGraphs          = Constants.colspanPortraitGraphs;
+        this.rowspanGraphs          = Constants.rowspanPortraitGraphs;
+        this.rowspanSynthese        = Constants.rowspanPortraitSynthese;
+        this.colspanSynthese        = Constants.colspanPortraitSynthese;
+        this.rowspanSmall           = Constants.rowspanPortraitSmall;
+        this.colspanSmall           = Constants.colspanPortraitSmall;
+        this.ratio                  = Constants.ratioPortrait;
+        this.colsCount              = Constants.colCountPortrait;
+        this.rowspanActivityPreview = Constants.rowspanPortraitActivityPreview;
+        this.colspanActivityPreview = Constants.colspanPortraitActivityPreview;
+      }      
+    })  
+    // Pour le paysage mobile
+    this.isHandsetLandscape.subscribe(p_boo=>{
+      if (p_boo){
+        this.isGraphsShowable = true;
+        this.colspanGraphs          = Constants.handsetColspanLandscapeGraphs;
+        this.rowspanGraphs          = Constants.handsetRowspanLandscapeGraphs;
+        this.rowspanSynthese        = Constants.handsetRowspanLandscapeSynthese;
+        this.colspanSynthese        = Constants.handsetColspanLandscapeSynthese;
+        this.rowspanSmall           = Constants.handsetRowspanLandscapeSmall;
+        this.colspanSmall           = Constants.handsetColspanLandscapeSmall;
+        this.ratio                  = Constants.handsetRatioLandscape;
+        this.colsCount              = Constants.handsetColCountLandscape;
+        this.rowspanActivityPreview = Constants.handsetRowspanLandscapeActivityPreview;
+        this.colspanActivityPreview = Constants.handsetColspanLandscapeActivityPreview;
+      }      
+    })  
+    // Pour le portrait mobile
+    this.isHandsetPortrait.subscribe(p_boo=>{
+      if (p_boo){
+        this.isGraphsShowable = false;
+        this.colspanGraphs          = Constants.handsetColspanPortraitGraphs;
+        this.rowspanGraphs          = Constants.handsetRowspanPortraitGraphs;
+        this.rowspanSynthese        = Constants.handsetRowspanPortraitSynthese;
+        this.colspanSynthese        = Constants.handsetColspanPortraitSynthese;
+        this.rowspanSmall           = Constants.handsetRowspanPortraitSmall;
+        this.colspanSmall           = Constants.handsetColspanPortraitSmall;
+        this.ratio                  = Constants.handsetRatioPortrait;
+        this.colsCount              = Constants.handsetColCountPortrait;
+        this.rowspanActivityPreview = Constants.handsetRowspanPortraitActivityPreview;
+        this.colspanActivityPreview = Constants.handsetColspanPortraitActivityPreview;
+      }      
     })  
     // Pour surveiller et obtenir les infos de la tendance de l'année
     UtilsMethods.tendanceSubject.subscribe(p_tendance=>{
@@ -249,9 +319,5 @@ export class DashboardComponent implements OnInit, OnDestroy{
     }else{
       console.error(`Le tableau du graph de l'année passée est vide`)
     }
-  }
-
-  ngOnDestroy(){
-    // UtilsMethods.tendanceSubject.unsubscribe();
   }
 }

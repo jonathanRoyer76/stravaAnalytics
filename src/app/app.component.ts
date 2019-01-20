@@ -5,6 +5,9 @@ import { AthletesService } from 'src/app/services/athletes.service';
 import { SummaryAthlete, SummaryAthleteClass } from 'src/app/interfacesStrava/models';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Configuration } from './classes/configStrava';
+import { Observable } from 'rxjs';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -14,20 +17,30 @@ import { Configuration } from './classes/configStrava';
 export class AppComponent implements OnInit{
 
   // valeur de connexion
-  isConnected : boolean = false;
+  isConnected  : boolean        = false;
   userConnected: SummaryAthlete = new SummaryAthleteClass();
-  config  : Configuration;
+  config       : Configuration;
+
+  isMobileLandscape : Observable<boolean> = this.breakpointObserver.observe(Breakpoints.HandsetLandscape)
+  .pipe(
+    map(result => result.matches)
+  )
+  isToolbarShowable : boolean
 
   constructor(
-    private oauthService  : Oauth2Service,
-    private athleteService: AthletesService,
-    private router : Router,
-    private route      : ActivatedRoute,
+    private oauthService      : Oauth2Service,
+    private athleteService    : AthletesService,
+    private router            : Router,
+    private route             : ActivatedRoute,
+    private breakpointObserver: BreakpointObserver
   ) 
   {}
 
   ngOnInit(){
 
+    this.isMobileLandscape.subscribe(p_boo=>{
+      this.isToolbarShowable = p_boo;
+    })
     // Récupération de la Configuration dans le service
     this.config = this.oauthService.getConfiguration();
     // Récupération du code si l'on vient de s'authentifier

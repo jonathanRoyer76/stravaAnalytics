@@ -87,26 +87,49 @@ export class Constants {
         'Décembre',
     ]
 
-    // Pour l'affichage en mode paysage
-    public static colspanLandscapeGraphs = 2;
-    public static rowspanLandscapeGraphs = 2;
+    // Pour l'affichage Web en mode paysage
+    public static colspanLandscapeGraphs = 3;
+    public static rowspanLandscapeGraphs = 12;
     public static colspanLandscapeSynthese = 2;
-    public static rowspanLandscapeSynthese = 2;
+    public static rowspanLandscapeSynthese = 8;
     public static colspanLandscapeSmall = 2;
-    public static rowspanLandscapeSmall = 2;
+    public static rowspanLandscapeSmall = 7;
     public static colspanLandscapeActivityPreview = 3;
-    public static rowspanLandscapeActivityPreview = 2;
-    public static ratioLandscape = '1.75:1';
-    public static colCountLandscape = 5;
-    // Pour l'affichage en mode portait
+    public static rowspanLandscapeActivityPreview = 9;
+    public static ratioLandscape = '7:1';
+    public static colCountLandscape = 7;
+    // Pour l'affichage web en mode portait
     public static colspanPortraitGraphs = 4;
-    public static rowspanPortraitGraphs = 4;
+    public static rowspanPortraitGraphs = 9;
     public static colspanPortraitSynthese = 2;
-    public static rowspanPortraitSynthese = 2;
-    public static colspanPortraitSmall = 3;
-    public static rowspanPortraitSmall = 2;
+    public static rowspanPortraitSynthese = 5;
+    public static colspanPortraitSmall = 2;
+    public static rowspanPortraitSmall = 4;
     public static colspanPortraitActivityPreview = 3;
-    public static rowspanPortraitActivityPreview = 2;
-    public static ratioPortrait = '1.55:1';
+    public static rowspanPortraitActivityPreview = 5;
+    public static ratioPortrait = '4:1';
     public static colCountPortrait = 4;
+
+    // Pour l'affichage mobile en mode paysage
+    public static handsetColspanLandscapeGraphs = 4;
+    public static handsetRowspanLandscapeGraphs = 16;
+    public static handsetColspanLandscapeSynthese = 3;
+    public static handsetRowspanLandscapeSynthese = 12;
+    public static handsetColspanLandscapeSmall = 3;
+    public static handsetRowspanLandscapeSmall = 10;
+    public static handsetColspanLandscapeActivityPreview = 4;
+    public static handsetRowspanLandscapeActivityPreview = 12;
+    public static handsetRatioLandscape = '7:1';
+    public static handsetColCountLandscape = 4;
+    // Pour l'affichage mobile en mode portait
+    public static handsetColspanPortraitGraphs = 4;
+    public static handsetRowspanPortraitGraphs = 25;
+    public static handsetColspanPortraitSynthese = 4;
+    public static handsetRowspanPortraitSynthese = 40;
+    public static handsetColspanPortraitSmall = 4;
+    public static handsetRowspanPortraitSmall = 2;
+    public static handsetColspanPortraitActivityPreview = 4;
+    public static handsetRowspanPortraitActivityPreview = 50;
+    public static handsetRatioPortrait = '8:1';
+    public static handsetColCountPortrait = 4;
 }

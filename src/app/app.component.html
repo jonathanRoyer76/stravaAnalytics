@@ -1,27 +1,29 @@
-<mat-toolbar class='mat-elevation-z10'>
-    <a href="http://www.strava.com"><img src='assets/compatible_strava_vertical.png' height=100%></a>
-    <span *ngIf='isConnected'>
-        <div class="center">
-            <a class='toolbar_item background' routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
-        </div>
-    </span>
-    <span class="spacer"></span>
-    <span class="right" >        
-        <span *ngIf="!isConnected">
-        <img src="assets/btn_connect_with_strava.png" (click)="stravaConnection()">
-        </span> 
-        <span *ngIf="isConnected">
-        <mat-menu #menu="matMenu">
-            <a mat-menu-item class='text-orange background' routerLink="/activitiesList" routerLinkActive="active">Liste des activités</a>
-            <button (click)='stravaDisconnect()' mat-menu-item class='text-orange background'>Révoquer l'accès au compte</button>            
-        </mat-menu>
-        <button mat-icon-button [matMenuTriggerFor]="menu" style='margin-right: 15px;'>
-            <mat-icon color='warn' >keyboard_arrow_down</mat-icon>
-            <img mat-card-avatar [src]='userConnected.profile_medium'>
-        </button>
-        </span> 
-    </span>
-</mat-toolbar>
+<span *ngIf='!isToolbarShowable'>
+    <mat-toolbar class='mat-elevation-z10'>
+        <a href="http://www.strava.com"><img src='assets/compatible_strava_vertical.png' height=100%></a>
+        <span *ngIf='isConnected'>
+            <div class="center">
+                <a class='toolbar_item background' routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
+            </div>
+        </span>
+        <span class="spacer"></span>
+        <span class="right" >        
+            <span *ngIf="!isConnected">
+            <img src="assets/btn_connect_with_strava.png" (click)="stravaConnection()">
+            </span> 
+            <span *ngIf="isConnected">
+            <mat-menu #menu="matMenu">
+                <a mat-menu-item class='text-orange background' routerLink="/activitiesList" routerLinkActive="active">Liste des activités</a>
+                <button (click)='stravaDisconnect()' mat-menu-item class='text-orange background'>Révoquer l'accès au compte</button>            
+            </mat-menu>
+            <button mat-icon-button [matMenuTriggerFor]="menu" style='margin-right: 15px;'>
+                <mat-icon color='warn' >keyboard_arrow_down</mat-icon>
+                <img mat-card-avatar [src]='userConnected.profile_medium'>
+            </button>
+            </span> 
+        </span>
+    </mat-toolbar>
+</span>
 <div style="margin-top: 70px;">
     <router-outlet></router-outlet>
 </div>

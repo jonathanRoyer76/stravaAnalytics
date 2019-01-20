@@ -3,19 +3,19 @@
     <img mat-card-avatar [src]='athlete.avatarURL'>
     <mat-card-title>
       Dernier run : <span class="text-orange">{{ lastActivity.activityName }}</span>
-      <button mat-icon-button class="more-button" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
+      <!-- <button mat-icon-button class="more-button" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
         <mat-icon>more_vert</mat-icon>
       </button>
       <mat-menu #menu="matMenu" xPosition="before">
         <button mat-menu-item>Expand</button>
         <button mat-menu-item>Remove</button>
-      </mat-menu>
+      </mat-menu> -->
     </mat-card-title>
     <mat-card-subtitle>par {{ athlete.firstName }} {{ athlete.lastName }} le {{ lastActivity.startDate | date:'dd.MM.yyyy' }}</mat-card-subtitle>
   </mat-card-header>
   <mat-card-content>    
       <div class='container'>
-        <mat-list>
+        <mat-list dense>
           <mat-list-item>
             <img mat-card-avatar src='assets/distance.png'><span class="text-orange text-info">{{ lastActivity.distance }}</span> Km
             <mat-divider></mat-divider>

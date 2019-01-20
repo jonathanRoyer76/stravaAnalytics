@@ -13,34 +13,33 @@
               Synthèse annuelle
             </mat-card-title>
           </mat-card-header>
-          <mat-card-content class="dashboard-card-content">
-              <mat-list>
-                <mat-list-item> 
-                    <img mat-list-icon src='assets/runningIcon.png' ><b>Runs</b><span class="fontSize-synthese text-orange"> {{ actualYearStats.totalRuns[0] }} </span><mat-divider></mat-divider>
-                </mat-list-item>                
-                <mat-list-item>
-                    <img mat-list-icon src='assets/distance.png' ><b>Distance</b>
-                    <span class="fontSize-synthese text-orange">{{ actualYearStats.totalDistance[0] }} </span><span class="fontSize-syntheseSmall"> Km</span>
-                    <span class="fontSize-synthese separator">|</span>
-                    <span class="fontSize-synthese text-orange">{{ actualYearStats.totalDistance[1] }} </span><span class="fontSize-syntheseSmall"> Km/activité</span><mat-divider></mat-divider>
-                </mat-list-item>
-                <mat-list-item>
-                    <img mat-list-icon src='assets/horloge.svg' ><b>Temps</b>
-                    <span class="fontSize-synthese text-orange">{{ actualYearStats.totalTime[0] }} </span><span class="fontSize-syntheseSmall"> H</span>
-                    <span class="fontSize-synthese separator">|</span>
-                    <span class="fontSize-synthese text-orange">{{ actualYearStats.totalTime[1] }} </span><span class="fontSize-syntheseSmall"><span> min/activité</span></span><mat-divider></mat-divider>
-                </mat-list-item>
-                <mat-list-item>
-                    <img mat-list-icon src='assets/average.png' ><b>Allure</b>
-                    <span class="fontSize-synthese text-orange">{{ actualYearStats.averageSpeed[0] }} </span><span  class="fontSize-syntheseSmall"> min/Km</span>
-                    <span class="fontSize-synthese separator">|</span> 
-                    <span class="fontSize-synthese text-orange">{{ actualYearStats.averageSpeed[1] }} </span><span class="fontSize-syntheseSmall"> Km/heure</span>
-                </mat-list-item>
-              </mat-list>
+          <mat-card-content>
+            <div>
+                <img mat-card-avatar src='assets/runningIcon.png' ><span class='marginTitle'><b>Runs</b></span><span class="fontSize-synthese text-orange"> {{ actualYearStats.totalRuns[0] }} </span><mat-divider></mat-divider>
+            </div>
+            <div>
+                <img mat-card-avatar src='assets/distance.png' ><span class='marginTitle'><b>Distance</b></span>
+                <span class="fontSize-synthese text-orange">{{ actualYearStats.totalDistance[0] }}</span> Km
+                <span class="fontSize-synthese separator">|</span>
+                <span class="fontSize-synthese text-orange">{{ actualYearStats.totalDistance[1] }}</span> Km/activité<mat-divider></mat-divider>
+            </div>
+            <div>
+                <img mat-card-avatar src='assets/horloge.svg' ><span class='marginTitle'><b>Temps</b></span>
+                <span class="fontSize-synthese text-orange">{{ actualYearStats.totalTime[0] }}</span> H
+                <span class="fontSize-synthese separator">|</span>
+                <span class="fontSize-synthese text-orange">{{ actualYearStats.totalTime[1] }}</span> min/activité<mat-divider></mat-divider>
+            </div>            
+            <div>
+                <img mat-card-avatar src='assets/average.png' ><span class='marginTitle'><b>Allure</b></span>
+                <span class="fontSize-synthese text-orange">{{ actualYearStats.averageSpeed[0] }}</span> min/Km
+                <span class="fontSize-synthese separator">|</span> 
+                <span class="fontSize-synthese text-orange">{{ actualYearStats.averageSpeed[1] }}</span> Km/heure
+            </div>
           </mat-card-content> 
         </mat-card>
       </mat-grid-tile>
-    <mat-grid-tile [colspan]='colspanGraphs' [rowspan]='rowspanGraphs'>
+    <span *ngIf='isGraphsShowable'>
+      <mat-grid-tile [colspan]='colspanGraphs' [rowspan]='rowspanGraphs'>
         <mat-card class="dashboard-card mat-elevation-z8">
           <mat-card-header>
             <mat-card-title class="text-orange">
@@ -48,24 +47,25 @@
             </mat-card-title>
           </mat-card-header>
           <mat-card-content class="dashboard-card-content">
-            <!-- <div>Card Content Here</div> -->
             <canvas id="chartN"></canvas>
           </mat-card-content>          
         </mat-card>
       </mat-grid-tile> 
+    </span>    
+    <span *ngIf='isGraphsShowable'>
       <mat-grid-tile [colspan]='colspanGraphs' [rowspan]='rowspanGraphs'> 
-          <mat-card class="dashboard-card mat-elevation-z8">
-            <mat-card-header>
-              <mat-card-title class="text-orange">
-                Distance parcourue cette année
-              </mat-card-title>
-            </mat-card-header>
-            <mat-card-content class="dashboard-card-content">
-              <!-- <div>Card Content Here</div> -->
-              <canvas id="distanceN"></canvas>
-            </mat-card-content>
-          </mat-card>
-        </mat-grid-tile>      
+        <mat-card class="dashboard-card mat-elevation-z8">
+          <mat-card-header>
+            <mat-card-title class="text-orange">
+              Distance parcourue cette année
+            </mat-card-title>
+          </mat-card-header>
+          <mat-card-content class="dashboard-card-content">
+            <canvas id="distanceN"></canvas>
+          </mat-card-content>
+        </mat-card>
+      </mat-grid-tile>  
+    </span>          
      <!-- N - 1  -->
      <mat-grid-tile [colspan]='colspanSmall' [rowspan]='rowspanSmall'>
         <mat-card class="dashboard-card mat-elevation-z8">
@@ -74,26 +74,24 @@
               Tendance sur l'année
             </mat-card-title>
           </mat-card-header>
-          <mat-card-content class="dashboard-card-content">   
-              <mat-list>               
-                  <mat-list-item>
-                    <img mat-list-icon src='assets/distance.png'><b>Distance</b>                    
-                    <span *ngIf="tendance.distance > -1 "><img mat-list-icon src='assets/green_arrow_up.png'>( <span style="color: green"><b>+ {{ tendance.distance }}</b></span> kilomètre(s) par activité ) </span>
-                    <span *ngIf="tendance.distance < -1"><img mat-list-icon src='assets/red_arrow_down.png'>( <span style="color: red"><b>{{ tendance.distance }}</b></span> kilomètre(s) par activité ) </span>
-                    <mat-divider></mat-divider>
-                  </mat-list-item>
-                  <mat-list-item>
-                    <img mat-list-icon src='assets/horloge.svg'><b>Temps</b>
-                    <span *ngIf="tendance.time > -1"><img mat-list-icon src='assets/green_arrow_up.png'>( <span style="color: green"><b>{{ tendance.time }}</b></span> minute(s) par activité ) </span>
-                    <span *ngIf="tendance.time < -1"><img mat-list-icon src='assets/red_arrow_down.png'>( <span style="color: red"><b>+ {{ tendance.time }}</b></span> minute(s) par activité ) </span>
-                    <mat-divider></mat-divider>
-                  </mat-list-item>
-                  <mat-list-item>
-                    <img mat-list-icon src='assets/average.png'><b>Allure</b>
-                    <span *ngIf="tendance.averageSpeed < -1"><img mat-list-icon src='assets/green_arrow_up.png'>( <span style="color: green"><b>- {{ tendance.averageSpeed }}</b></span> min/Km par activité ) </span>
-                    <span *ngIf="tendance.averageSpeed > -1"><img mat-list-icon src='assets/red_arrow_down.png'>( <span style="color: red"><b>+ {{ tendance.averageSpeed }}</b></span> min/Km par activité ) </span>
-                  </mat-list-item>
-                </mat-list>                                    
+          <mat-card-content>  
+            <div>
+              <img mat-card-avatar src='assets/distance.png'><span class='marginTitle'><b>Distance</b></span>
+              <span *ngIf="tendance.distance > -1 "><img mat-card-avatar src='assets/green_arrow_up.png'>( <span style="color: green"><b>+ {{ tendance.distance }}</b></span> kilomètre(s) par activité ) </span>
+              <span *ngIf="tendance.distance < -1"><img mat-card-avatar src='assets/red_arrow_down.png'>( <span style="color: red"><b>{{ tendance.distance }}</b></span> kilomètre(s) par activité ) </span>
+              <mat-divider></mat-divider>
+            </div> 
+            <div>
+              <img mat-card-avatar src='assets/horloge.svg'><span class='marginTitle'><b>Temps</b></span>
+              <span *ngIf="tendance.time > -1"><img mat-card-avatar src='assets/green_arrow_up.png'>( <span style="color: green"><b>{{ tendance.time }}</b></span> minute(s) par activité ) </span>
+              <span *ngIf="tendance.time < -1"><img mat-card-avatar src='assets/red_arrow_down.png'>( <span style="color: red"><b>+ {{ tendance.time }}</b></span> minute(s) par activité ) </span>
+              <mat-divider></mat-divider>
+            </div> 
+            <div>
+              <img mat-card-avatar src='assets/average.png'><span class='marginTitle'><b>Allure</b></span>
+              <span *ngIf="tendance.averageSpeed < -1"><img mat-card-avatar src='assets/green_arrow_up.png'>( <span style="color: green"><b>- {{ tendance.averageSpeed }}</b></span> min/Km par activité ) </span>
+              <span *ngIf="tendance.averageSpeed > -1"><img mat-card-avatar src='assets/red_arrow_down.png'>( <span style="color: red"><b>+ {{ tendance.averageSpeed }}</b></span> min/Km par activité ) </span>
+            </div>                 
           </mat-card-content>          
         </mat-card>
       </mat-grid-tile>
@@ -104,56 +102,57 @@
                 Synthèse pour l'année dernière
               </mat-card-title>
             </mat-card-header>
-            <mat-card-content class="dashboard-card-content">
-              <mat-list>
-                <mat-list-item> 
-                    <img mat-list-icon src='assets/runningIcon.png' ><b>Runs</b><span class="fontSize-synthese text-orange"> {{ lastYearStats.totalRuns[0] }} </span><mat-divider></mat-divider>
-                </mat-list-item>                
-                <mat-list-item>
-                    <img mat-list-icon src='assets/distance.png' ><b>Distance</b>
-                    <span class="fontSize-synthese text-orange">{{ lastYearStats.totalDistance[0] }} </span><span class="fontSize-syntheseSmall"> Km</span>
-                    <span class="fontSize-synthese separator">|</span>
-                    <span class="fontSize-synthese text-orange">{{ lastYearStats.totalDistance[1] }} </span><span class="fontSize-syntheseSmall"> Km/activité</span><mat-divider></mat-divider>
-                </mat-list-item>
-                <mat-list-item>
-                    <img mat-list-icon src='assets/horloge.svg' ><b>Temps</b>
-                    <span class="fontSize-synthese text-orange">{{ lastYearStats.totalTime[0] }}</span><span class="fontSize-syntheseSmall">H</span>
-                    <span class="fontSize-synthese separator">|</span>
-                    <span class="fontSize-synthese text-orange">{{ lastYearStats.totalTime[1] }}</span><span class="fontSize-syntheseSmall"><span>min/activité</span></span><mat-divider></mat-divider>
-                </mat-list-item>
-                <mat-list-item>
-                    <img mat-list-icon src='assets/average.png' ><b>Allure</b>
-                    <span class="fontSize-synthese text-orange">{{ lastYearStats.averageSpeed[0] }}</span><span  class="fontSize-syntheseSmall">min/Km</span>
-                    <span class="fontSize-synthese separator">|</span>
-                    <span class="fontSize-synthese text-orange">{{ lastYearStats.averageSpeed[1] }}</span><span class="fontSize-syntheseSmall">Km/heure</span> 
-                </mat-list-item>
-              </mat-list>
+            <mat-card-content>
+              <div>
+                  <img mat-card-avatar src='assets/runningIcon.png' ><span class='marginTitle'><b>Runs</b></span>
+                  <span class="fontSize-synthese text-orange"> {{ lastYearStats.totalRuns[0] }} </span><mat-divider></mat-divider>
+              </div>
+              <div>
+                <img mat-card-avatar src='assets/distance.png' ><span class='marginTitle'><b>Distance</b></span>
+                <span class="fontSize-synthese text-orange">{{ lastYearStats.totalDistance[0] }} </span>Km
+                <span class="fontSize-synthese separator">|</span>
+                <span class="fontSize-synthese text-orange">{{ lastYearStats.totalDistance[1] }} </span>Km/activité<mat-divider></mat-divider>
+              </div>
+              <div>
+                  <img mat-card-avatar src='assets/horloge.svg' ><span class='marginTitle'><b>Temps</b></span>
+                  <span class="fontSize-synthese text-orange">{{ lastYearStats.totalTime[0] }}</span>H
+                  <span class="fontSize-synthese separator">|</span>
+                  <span class="fontSize-synthese text-orange">{{ lastYearStats.totalTime[1] }}</span>min/activité<mat-divider></mat-divider>
+              </div>
+              <div>
+                  <img mat-card-avatar src='assets/average.png' ><span class='marginTitle'><b>Allure</b></span>
+                  <span class="fontSize-synthese text-orange">{{ lastYearStats.averageSpeed[0] }}</span>min/Km
+                  <span class="fontSize-synthese separator">|</span>
+                  <span class="fontSize-synthese text-orange">{{ lastYearStats.averageSpeed[1] }}</span>Km/heure
+              </div> 
             </mat-card-content>
           </mat-card>
         </mat-grid-tile>  
-      <mat-grid-tile [colspan]='colspanGraphs' [rowspan]='rowspanGraphs'>
-        <mat-card class="dashboard-card mat-elevation-z8">
-          <mat-card-header>
-            <mat-card-title class="text-orange">
-              L'année dernière
-            </mat-card-title>
-          </mat-card-header>
-          <mat-card-content class="dashboard-card-content">
-            <canvas id="chartN-1"></canvas>
-          </mat-card-content>          
-        </mat-card>
-      </mat-grid-tile>
-      <mat-grid-tile [colspan]='colspanGraphs' [rowspan]='rowspanGraphs'>
+      <span *ngIf='isGraphsShowable'>
+        <mat-grid-tile [colspan]='colspanGraphs' [rowspan]='rowspanGraphs'>
           <mat-card class="dashboard-card mat-elevation-z8">
             <mat-card-header>
               <mat-card-title class="text-orange">
-                Distance parcourue l'année dernière
+                L'année dernière
               </mat-card-title>
             </mat-card-header>
-            <mat-card-content class="dashboard-card-content"> 
-              <canvas id="distanceN-1"></canvas>
-            </mat-card-content>
+            <mat-card-content class="dashboard-card-content">
+              <canvas id="chartN-1"></canvas>
+            </mat-card-content>          
           </mat-card>
-        </mat-grid-tile>          
+        </mat-grid-tile>
+        <mat-grid-tile [colspan]='colspanGraphs' [rowspan]='rowspanGraphs'>
+            <mat-card class="dashboard-card mat-elevation-z8">
+              <mat-card-header>
+                <mat-card-title class="text-orange">
+                  Distance parcourue l'année dernière
+                </mat-card-title>
+              </mat-card-header>
+              <mat-card-content class="dashboard-card-content"> 
+                <canvas id="distanceN-1"></canvas>
+              </mat-card-content>
+            </mat-card>
+          </mat-grid-tile>  
+      </span>              
   </mat-grid-list>
 </div>
