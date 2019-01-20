@@ -127,7 +127,7 @@ export class Constants {
     public static handsetColspanPortraitSynthese = 4;
     public static handsetRowspanPortraitSynthese = 40;
     public static handsetColspanPortraitSmall = 4;
-    public static handsetRowspanPortraitSmall = 2;
+    public static handsetRowspanPortraitSmall = 28;
     public static handsetColspanPortraitActivityPreview = 4;
     public static handsetRowspanPortraitActivityPreview = 50;
     public static handsetRatioPortrait = '8:1';
