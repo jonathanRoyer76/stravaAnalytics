@@ -575,11 +575,7 @@ MIT
 
 @angular/material/paginator
 
-@angular/material/grid-list
-
 @angular/material/card
-
-@angular/material/list
 
 @angular/material/divider
 
