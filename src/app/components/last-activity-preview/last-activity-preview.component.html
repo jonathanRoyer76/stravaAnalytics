@@ -3,36 +3,50 @@
     <img mat-card-avatar [src]='athlete.avatarURL'>
     <mat-card-title>
       Dernier run : <span class="text-orange">{{ lastActivity.activityName }}</span>
-      <!-- <button mat-icon-button class="more-button" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
-        <mat-icon>more_vert</mat-icon>
-      </button>
-      <mat-menu #menu="matMenu" xPosition="before">
-        <button mat-menu-item>Expand</button>
-        <button mat-menu-item>Remove</button>
-      </mat-menu> -->
     </mat-card-title>
     <mat-card-subtitle>par {{ athlete.firstName }} {{ athlete.lastName }} le {{ lastActivity.startDate | date:'dd.MM.yyyy' }}</mat-card-subtitle>
   </mat-card-header>
   <mat-card-content>    
       <div class='container'>
-        <mat-list dense>
+        <div class='container-infos'>
+          <div class='container-infos-details'>
+              <img mat-card-avatar src='assets/distance.png'><span class='marginTitle'><b>Distance</b></span> 
+              <span class="fontSize-synthese text-orange"> {{ lastActivity.distance }} </span> Km<mat-divider></mat-divider>  
+          </div>
+          <div class='container-infos-details'>
+              <img mat-card-avatar src='assets/horloge.svg'><span class='marginTitle'><b>Durée</b></span>
+              <span class="text-orange text-info">{{ lastActivity.duration }}</span> H
+              <mat-divider></mat-divider>
+          </div>
+          <div class='container-infos-details'>
+              <img mat-card-avatar src='assets/average.png'><span class='marginTitle'><b>Allure</b></span>
+              <span class="text-orange text-info">{{ lastActivity.averageSpeed }}</span> min/km
+              <mat-divider></mat-divider>
+          </div>
+          <div class='container-infos-details'>
+              <img mat-card-avatar src='assets/calories.jpg'><span class='marginTitle'><b>Calories</b></span>
+              <span class="text-orange text-info">{{ lastActivity.calories }}</span> Cal
+          </div>
+        </div>
+        
+        <!-- <mat-list>
           <mat-list-item>
-            <img mat-card-avatar src='assets/distance.png'><span class="text-orange text-info">{{ lastActivity.distance }}</span> Km
+            <img mat-card-avatar src='assets/distance.png'><span class='fontSize-synthese'>Distance</span><span class="text-orange text-info">{{ lastActivity.distance }}</span> Km
             <mat-divider></mat-divider>
           </mat-list-item>
           <mat-list-item>
-            <img mat-card-avatar src='assets/horloge.svg'><span class="text-orange text-info">{{ lastActivity.duration }}</span> H
+            <img mat-card-avatar src='assets/horloge.svg'><span class='fontSize-synthese'>Durée</span><span class="text-orange text-info">{{ lastActivity.duration }}</span> H
             <mat-divider></mat-divider>
           </mat-list-item>
           <mat-list-item>
-            <img mat-card-avatar src='assets/average.png'><span class="text-orange text-info">{{ lastActivity.averageSpeed }}</span> min/Km
+            <img mat-card-avatar src='assets/average.png'><span class='fontSize-synthese'>Distance</span><span class="text-orange text-info">{{ lastActivity.averageSpeed }}</span> min/Km
             <mat-divider></mat-divider>
           </mat-list-item>
           <mat-list-item>
-            <img mat-card-avatar src='assets/calories.jpg'><span class="text-orange text-info">{{ lastActivity.calories }}</span> Cal
+            <img mat-card-avatar src='assets/calories.jpg'><span class='fontSize-synthese'>Distance</span><span class="text-orange text-info">{{ lastActivity.calories }}</span> Cal
             <mat-divider></mat-divider>
           </mat-list-item>
-        </mat-list>
+        </mat-list> -->
         <div id="map" class="map-leaflet"></div>
       </div>
   </mat-card-content>    

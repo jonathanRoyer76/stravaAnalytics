@@ -1,22 +1,39 @@
 .grid-container {
-  margin: 20px;
+  display: flex;
+  // justify-content: center; 
+  flex-wrap: wrap;  
 }
 
 .dashboard-card {
-  position: absolute;
-  top: 15px;
-  left: 15px;
-  right: 15px;
-  bottom: 15px;  
-  overflow: hidden;
+  // position: absolute;
+  // top: 15px;
+  // left: 15px;
+  // right: 15px;
+  // bottom: 15px;  
+  // overflow: hidden;
+  margin: 1% 1%;
+  // width: 300px;
+  flex: 1 1 auto;
+  height: 100%;
 }
 
-.more-button {
-  position: absolute;
-  top: 5px;
-  right: 10px;
-  color: black;
+.dashboard-title{
+  margin-top: 9%;
 }
+
+.graph-card{
+  margin: 1% 1%;
+  min-width: 400px;
+  max-width: 700px;
+  flex: 1 1 auto;
+}
+
+// .more-button {
+//   position: absolute;
+//   top: 5px;
+//   right: 10px;
+//   color: black;
+// }
 
 .text-orange{
   color: #fc4c02; 
